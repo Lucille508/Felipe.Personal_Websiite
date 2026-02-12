@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Security Headers (Meta Tags) -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+    
+    <title>Emmanuel Joshua R. Felipe Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sticky Navigation Bar with Mobile Menu -->
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <!-- Logo / Brand Name -->
+                <div class="nav-brand">
+                    <a href="#home">EJF</a>
+                </div>
+                
+                <!-- Navigation Links -->
+                <ul class="nav-menu">
+                    <li><a href="#home" class="nav-link active">Home</a></li>
+                    <li><a href="#about" class="nav-link">About Me</a></li>
+                    <li><a href="#skills" class="nav-link">Skills</a></li>
+                    <li><a href="#projects" class="nav-link">Projects</a></li>
+                    <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+                
+                <!-- Mobile Menu Toggle Button -->
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Home Section / Hero with Animated Typing Effect -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <!-- Main heading with name -->
+            <h1 class="hero-name">Emmanuel Joshua R. Felipe</h1>
+            <!-- Tagline with typing animation -->
+            <p class="hero-tagline">
+                <span class="typing-text"></span>
+                <span class="cursor">|</span>
+            </p>
+            <!-- Call-to-action button -->
+            <a href="#projects" class="cta-button">See My Work</a>
+        </div>
+        
+        <!-- Scroll down indicator -->
+        <div class="scroll-down">
+            <span>Scroll Down</span>
+            <div class="arrow-down"></div>
+        </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <!-- Section heading -->
+            <h2 class="section-title">About Me</h2>
+            
+            <div class="about-content">
+                <!-- Profile image placeholder -->
+                <div class="about-image">
+                    <img src="profile-placeholder.jpg" alt="Emmanuel Joshua R. Felipe" class="profile-img">
+                    <!-- Replace 'profile-placeholder.jpg' with your actual image path -->
+                </div>
+                
+                <!-- About cards container -->
+                <div class="about-cards">
+                    <!-- Education card -->
+                    <div class="about-card">
+                        <div class="card-icon">🎓</div>
+                        <h3 class="card-title">Education</h3>
+                        <p class="card-text">Currently a 3rd-year college student</p>
+                        <!-- Edit education details here -->
+                    </div>
+                    
+                    <!-- Goals card -->
+                    <div class="about-card">
+                        <div class="card-icon">🚀</div>
+                        <h3 class="card-title">Goals</h3>
+                        <p class="card-text">Aspiring full-stack developer</p>
+                        <!-- Edit career goals here -->
+                    </div>
+                    
+                    <!-- Hobbies card -->
+                    <div class="about-card">
+                        <div class="card-icon">💡</div>
+                        <h3 class="card-title">Hobbies</h3>
+                        <p class="card-text">Loves exploring new tech and design trends</p>
+                        <!-- Edit hobbies or fun facts here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <!-- Section heading -->
+            <h2 class="section-title">Skills & Services</h2>
+            
+            <div class="skills-content">
+                <!-- Technical Skills with Progress Bars -->
+                <div class="technical-skills">
+                    <h3>Technical Skills</h3>
+                    
+                    <!-- Designing skill -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">Designing</span>
+                            <span class="skill-percentage">85%</span>
+                            <!-- Edit percentage here -->
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                            <!-- Edit width to match percentage -->
+                        </div>
+                    </div>
+                    
+                    <!-- HTML skill -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">HTML</span>
+                            <span class="skill-percentage">90%</span>
+                            <!-- Edit percentage here -->
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 90%;"></div>
+                            <!-- Edit width to match percentage -->
+                        </div>
+                    </div>
+                    
+                    <!-- CSS skill -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">CSS</span>
+                            <span class="skill-percentage">85%</span>
+                            <!-- Edit percentage here -->
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%;"></div>
+                            <!-- Edit width to match percentage -->
+                        </div>
+                    </div>
+                    
+                    <!-- JavaScript skill -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-percentage">75%</span>
+                            <!-- Edit percentage here -->
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 75%;"></div>
+                            <!-- Edit width to match percentage -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Services Offered -->
+                <div class="services">
+                    <h3>Services Offered</h3>
+                    
+                    <div class="services-grid">
+                        <!-- Web Design service -->
+                        <div class="service-card">
+                            <div class="service-icon">🎨</div>
+                            <h4 class="service-title">Web Design</h4>
+                            <p class="service-description">Creating beautiful and functional websites</p>
+                            <!-- Edit service description here -->
+                        </div>
+                        
+                        <!-- UI/UX Design service -->
+                        <div class="service-card">
+                            <div class="service-icon">✨</div>
+                            <h4 class="service-title">UI/UX Design</h4>
+                            <p class="service-description">Designing intuitive user experiences</p>
+                            <!-- Edit service description here -->
+                        </div>
+                        
+                        <!-- Portfolio Websites service -->
+                        <div class="service-card">
+                            <div class="service-icon">💼</div>
+                            <h4 class="service-title">Portfolio Websites</h4>
+                            <p class="service-description">Building stunning portfolio sites</p>
+                            <!-- Edit service description here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <!-- Section heading -->
+            <h2 class="section-title">My Projects</h2>
+            
+            <!-- Filter tabs for project categories -->
+            <div class="filter-tabs">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="web">Web Dev</button>
+                <button class="filter-btn" data-filter="uiux">UI/UX</button>
+                <button class="filter-btn" data-filter="design">Design</button>
+                <!-- Add more filter buttons as needed -->
+            </div>
+            
+            <!-- Projects grid -->
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <span>🌐</span>
+                        <!-- Replace with: <img src="project1.jpg" alt="Project 1"> -->
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project 1</h3>
+                        <span class="project-category">Web Dev</span>
+                        <p class="project-description">Coming soon – My Projects</p>
+                        <!-- Edit project description here -->
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <!-- Replace # with actual links -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2 -->
+                <div class="project-card" data-category="uiux">
+                    <div class="project-image">
+                        <span>🎨</span>
+                        <!-- Replace with: <img src="project2.jpg" alt="Project 2"> -->
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project 2</h3>
+                        <span class="project-category">UI/UX</span>
+                        <p class="project-description">Coming soon – My Projects</p>
+                        <!-- Edit project description here -->
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <!-- Replace # with actual links -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 3 -->
+                <div class="project-card" data-category="web">
+                    <div class="project-image">
+                        <span>💻</span>
+                        <!-- Replace with: <img src="project3.jpg" alt="Project 3"> -->
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project 3</h3>
+                        <span class="project-category">Web Dev</span>
+                        <p class="project-description">Coming soon – My Projects</p>
+                        <!-- Edit project description here -->
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <!-- Replace # with actual links -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 4 -->
+                <div class="project-card" data-category="uiux">
+                    <div class="project-image">
+                        <span>✨</span>
+                        <!-- Replace with: <img src="project4.jpg" alt="Project 4"> -->
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project 4</h3>
+                        <span class="project-category">UI/UX</span>
+                        <p class="project-description">Coming soon – My Projects</p>
+                        <!-- Edit project description here -->
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <!-- Replace # with actual links -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 5 -->
+                <div class="project-card" data-category="design">
+                    <div class="project-image">
+                        <span>🚀</span>
+                        <!-- Replace with: <img src="project5.jpg" alt="Project 5"> -->
+                    </div>
+                    <div class="project-content">
+                        <h3 class="project-title">Project 5</h3>
+                        <span class="project-category">Design</span>
+                        <p class="project-description">Coming soon – My Projects</p>
+                        <!-- Edit project description here -->
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">GitHub</a>
+                            <!-- Replace # with actual links -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <!-- Section heading -->
+            <h2 class="section-title">What People Say</h2>
+            
+            <!-- Testimonials slider -->
+            <div class="testimonials-slider">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card active">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">Emmanuel is an exceptional developer with great attention to detail. His work on our project exceeded expectations and he always delivers on time!</p>
+                        <!-- Edit testimonial text here -->
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <span>�‍🏫</span>
+                            <!-- Replace with: <img src="client1.jpg" alt="Client Name"> -->
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-name">Prof. John Martinez</h4>
+                            <p class="author-position">Teacher / Web Development Instructor</p>
+                            <!-- Edit client name and position here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">Working with Emmanuel on our group project was amazing. He's creative, skilled, and always willing to help others learn. A true team player!</p>
+                        <!-- Edit testimonial text here -->
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <span>�‍🎓</span>
+                            <!-- Replace with: <img src="client2.jpg" alt="Client Name"> -->
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-name">Sarah Chen</h4>
+                            <p class="author-position">Classmate / Computer Science Student</p>
+                            <!-- Edit client name and position here -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">"</div>
+                        <p class="testimonial-text">Emmanuel's passion for web development is evident in everything he creates. His designs are modern, clean, and user-friendly. Highly recommend!</p>
+                        <!-- Edit testimonial text here -->
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="author-image">
+                            <span>👨‍�</span>
+                            <!-- Replace with: <img src="client3.jpg" alt="Client Name"> -->
+                        </div>
+                        <div class="author-info">
+                            <h4 class="author-name">David Rodriguez</h4>
+                            <p class="author-position">Mentor / Senior Developer</p>
+                            <!-- Edit client name and position here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slider navigation dots -->
+            <div class="testimonial-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <!-- Section heading -->
+            <h2 class="section-title">Get In Touch</h2>
+            
+            <div class="contact-content">
+                <!-- Contact information -->
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <!-- Email -->
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <a href="mailto:felipeemmanueljoshua0@gmail.com">felipeemmanueljoshua0@gmail.com</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone -->
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <div class="contact-text">
+                            <h4>Phone</h4>
+                            <a href="tel:09564359134">09564359134</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Download CV Button -->
+                    <a href="#" class="download-cv-btn" download>
+                        <span class="cv-icon">�</span>
+                        Download CV
+                    </a>
+                    <!-- Replace # with actual CV file path -->
+                    
+                    <!-- Social media links -->
+                    <h3 style="margin-top: 2rem;">Connect With Me</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link" title="LinkedIn">
+                            <span>💼</span>
+                            <!-- Replace with LinkedIn icon and actual link -->
+                        </a>
+                        <a href="#" class="social-link" title="GitHub">
+                            <span>�</span>
+                            <!-- Replace with GitHub icon and actual link -->
+                        </a>
+                        <a href="#" class="social-link" title="Twitter">
+                            <span>🐦</span>
+                            <!-- Replace with Twitter icon and actual link -->
+                        </a>
+                        <a href="#" class="social-link" title="Instagram">
+                            <span>📷</span>
+                            <!-- Replace with Instagram icon and actual link -->
+                        </a>
+                        <a href="#" class="social-link" title="Facebook">
+                            <span>📘</span>
+                            <!-- Replace with Facebook icon and actual link -->
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Contact form -->
+                <div class="contact-form">
+                    <h3>Send Me a Message</h3>
+                    <form id="contactForm" novalidate>
+                        <!-- Name field -->
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required maxlength="100" autocomplete="name" pattern="[A-Za-z\s\-\.]{2,100}">
+                            <span class="error-message" id="nameError">Please enter a valid name (2-100 characters, letters only)</span>
+                        </div>
+                        
+                        <!-- Email field -->
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required maxlength="254" autocomplete="email">
+                            <span class="error-message" id="emailError">Please enter a valid email address</span>
+                        </div>
+                        
+                        <!-- Message field -->
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required maxlength="5000" minlength="10"></textarea>
+                            <span class="error-message" id="messageError">Please enter a message (10-5000 characters)</span>
+                        </div>
+                        
+                        <!-- Google reCAPTCHA v3 (Add your site key) -->
+                        <input type="hidden" id="recaptchaToken" name="recaptchaToken">
+                        
+                        <!-- Honeypot field (hidden from users, catches bots) -->
+                        <input type="text" name="website" id="website" style="display:none" tabindex="-1" autocomplete="off">
+                        
+                        <!-- Submit button -->
+                        <button type="submit" class="submit-btn">Send Message</button>
+                        
+                        <!-- Success/Error message -->
+                        <div class="form-message" id="formMessage"></div>
+                    </form>
+                    
+                    <!-- reCAPTCHA notice -->
+                    <p class="recaptcha-notice">This site is protected by reCAPTCHA. <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <!-- Footer top section -->
+            <div class="footer-top">
+                <!-- Footer brand -->
+                <div class="footer-brand">
+                    <h3>Emmanuel Joshua R. Felipe</h3>
+                    <p>Aspiring Full-Stack Developer | Web Designer</p>
+                </div>
+                
+                <!-- Footer navigation -->
+                <div class="footer-nav">
+                    <h4>Quick Links</h4>
+                    <div class="footer-links">
+                        <a href="#home" class="footer-link">Home</a>
+                        <a href="#about" class="footer-link">About</a>
+                        <a href="#skills" class="footer-link">Skills</a>
+                        <a href="#projects" class="footer-link">Projects</a>
+                        <a href="#testimonials" class="footer-link">Testimonials</a>
+                        <a href="#contact" class="footer-link">Contact</a>
+                    </div>
+                </div>
+                
+                <!-- Footer social -->
+                <div class="footer-social">
+                    <h4>Follow Me</h4>
+                    <div class="footer-social-links">
+                        <a href="#" class="footer-social-link" title="LinkedIn">💼</a>
+                        <a href="#" class="footer-social-link" title="GitHub">💻</a>
+                        <a href="#" class="footer-social-link" title="Twitter">🐦</a>
+                        <a href="#" class="footer-social-link" title="Instagram">📷</a>
+                        <!-- Replace # with actual social media links -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer bottom -->
+            <div class="footer-bottom">
+                <div class="copyright">
+                    <p>&copy; 2026 Emmanuel Joshua R. Felipe. All rights reserved.</p>
+                    <!-- Edit copyright year and name as needed -->
+                </div>
+                <div class="footer-credits">
+                    <p>Designed & Built with ❤️ by Emmanuel</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Back to top button -->
+    <button class="back-to-top" id="backToTop" title="Back to Top">
+        <span>↑</span>
+    </button>
+    
+    <!-- Dark/Light mode toggle button -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark/Light Mode">
+        <span id="darkModeIcon">☀️</span>
+    </button>
+    
+    <!-- Google reCAPTCHA v3 Script (Replace YOUR_SITE_KEY with actual key) -->
+    <!-- <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"></script> -->
+    
+    <!-- JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

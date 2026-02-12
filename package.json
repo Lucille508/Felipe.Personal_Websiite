@@ -1,0 +1,34 @@
+{
+  "name": "secure-portfolio-backend",
+  "version": "1.0.0",
+  "description": "Secure backend for portfolio contact form",
+  "main": "backend-example.js",
+  "scripts": {
+    "start": "node backend-example.js",
+    "dev": "nodemon backend-example.js"
+  },
+  "keywords": [
+    "portfolio",
+    "contact-form",
+    "secure",
+    "express"
+  ],
+  "author": "Emmanuel Joshua R. Felipe",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "validator": "^13.11.0",
+    "node-fetch": "^2.7.0",
+    "nodemailer": "^6.9.7",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
