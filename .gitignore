@@ -1,48 +1,40 @@
 # Dependencies
 node_modules/
-package-lock.json
-yarn.lock
-
-# Environment variables
-.env
-.env.local
-.env.production
-
-# Logs
-logs/
-*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS files
-.DS_Store
-Thumbs.db
-desktop.ini
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
-# IDE files
+# IDE
 .vscode/
 .idea/
 *.swp
 *.swo
 *~
+.DS_Store
 
-# Build files
+# Build outputs
 dist/
 build/
-.cache/
+*.log
 
 # Temporary files
-tmp/
-temp/
 *.tmp
+*.temp
+.cache/
 
-# Sensitive data
+# OS files
+Thumbs.db
+.DS_Store
+
+# Security (don't commit sensitive files)
 *.pem
 *.key
 *.cert
 config/secrets.json
-
-# Backup files
-*.bak
-*.backup

@@ -1,165 +1,157 @@
-# 🔒 Secure Portfolio Website
+# Emmanuel Joshua R. Felipe - Portfolio Website
 
-A modern, professional, and **security-hardened** personal portfolio website for Emmanuel Joshua R. Felipe.
+A professional, modern portfolio website showcasing my skills, projects, and experience as a Full-Stack Developer.
 
-## ✨ Features
+## 🚀 Features
 
-- Modern, responsive design with dark/light mode
-- Animated hero section with typing effect
-- Interactive project filtering
-- Testimonials slider
-- Contact form with comprehensive security
-- Mobile-friendly navigation
-- Smooth scrolling and animations
-
-## 🛡️ Security Features
-
-### Implemented Security Measures:
-- ✅ **HTTPS Ready** - SSL/TLS configuration guides included
-- ✅ **Security Headers** - CSP, X-Frame-Options, HSTS, etc.
-- ✅ **XSS Protection** - Input sanitization and HTML escaping
-- ✅ **Input Validation** - Client-side validation with regex patterns
-- ✅ **Anti-Spam** - Honeypot field and rate limiting
-- ✅ **CAPTCHA Ready** - Google reCAPTCHA v3 integration prepared
-- ✅ **Secure Forms** - novalidate, maxlength, pattern attributes
-- ✅ **Safe External Resources** - Trusted CDNs only
-
-### Protection Against:
-- Cross-Site Scripting (XSS)
-- SQL Injection
-- Clickjacking
-- MIME type attacks
-- CSRF attacks
-- Spam submissions
-- Bot attacks
+- **Responsive Design** - Works perfectly on all devices
+- **Modern UI/UX** - Clean, professional interface with smooth animations
+- **Dark/Light Mode** - Toggle between themes
+- **Interactive Elements** - Smooth scrolling, typing effects, and transitions
+- **Contact Form** - Secure form with validation and anti-spam measures
+- **CV/Resume** - Downloadable professional resume
+- **Security Features** - XSS protection, input sanitization, rate limiting
 
 ## 📁 Project Structure
 
 ```
-portfolio/
-├── index.html              # Main HTML file with security headers
-├── styles.css              # Styling with brown/black theme
-├── script.js               # JavaScript with security utilities
-├── SECURITY.md             # Comprehensive security documentation
-├── DEPLOYMENT.md           # Deployment guide
-├── backend-example.js      # Secure backend implementation example
-├── _headers                # Netlify security headers
-├── .htaccess              # Apache security headers
-└── vercel.json            # Vercel security headers
+Personal_Website/
+├── index.html              # Main portfolio page
+├── cv.html                 # Resume/CV page
+├── package.json            # Project dependencies
+├── vercel.json            # Vercel deployment config
+├── .htaccess              # Apache server config
+├── _headers               # Netlify headers config
+├── .env.example           # Environment variables template
+├── .gitignore             # Git ignore rules
+│
+├── css/                   # Stylesheets
+│   ├── styles.css         # Main website styles
+│   └── cv-styles.css      # CV page styles
+│
+├── js/                    # JavaScript files
+│   └── script.js          # Main functionality & security
+│
+├── assets/                # Static assets
+│   ├── images/            # Images and photos
+│   │   └── profilepic.jpg
+│   └── files/             # Downloadable files (CV, etc.)
+│
+├── security/              # Security modules
+│   ├── auth-security.js   # Authentication utilities
+│   ├── file-security.js   # File upload security
+│   └── security-monitoring.js  # Security monitoring
+│
+└── docs/                  # Documentation
+    ├── README.md          # Project documentation
+    ├── DEPLOYMENT.md      # Deployment guide
+    ├── SECURITY.md        # Security documentation
+    ├── QUICK-START.md     # Quick start guide
+    └── backend-example.js # Backend integration examples
 ```
 
-## 🚀 Quick Start
+## 🛠️ Technologies Used
 
-### 1. Clone or Download
+- **HTML5** - Semantic markup
+- **CSS3** - Modern styling with animations
+- **JavaScript** - Interactive functionality
+- **Responsive Design** - Mobile-first approach
+- **Security Best Practices** - XSS protection, input validation
+
+## 🎨 Design Features
+
+- **Professional Navy Blue Theme** - Masculine, corporate aesthetic
+- **Montserrat & Roboto Fonts** - Clean, modern typography
+- **Smooth Animations** - Fade-ins, slide-ups, and transitions
+- **Grid Layouts** - Modern, flexible layouts
+- **Card-Based Design** - Clean, organized content sections
+
+## 📦 Installation
+
+1. Clone the repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/portfolio.git
+git clone https://github.com/yourusername/portfolio.git
 cd portfolio
 ```
 
-### 2. Customize Content
-Edit `index.html` to update:
-- Personal information
-- Skills and percentages
-- Projects
-- Testimonials
-- Contact details
-- Social media links
-
-### 3. Setup reCAPTCHA (Recommended)
-1. Get keys from https://www.google.com/recaptcha/admin
-2. Uncomment reCAPTCHA script in `index.html`
-3. Add your site key in `script.js`
-4. Implement backend verification
-
-### 4. Deploy
-Choose your platform:
-- **GitHub Pages**: Push to GitHub, enable Pages in settings
-- **Netlify**: Drag & drop or connect Git repository
-- **Vercel**: Run `vercel` command or connect Git
-
-See `DEPLOYMENT.md` for detailed instructions.
-
-## 🔧 Configuration
-
-### Security Headers
-Configuration files included for:
-- **Netlify**: `_headers`
-- **Apache**: `.htaccess`
-- **Vercel**: `vercel.json`
-
-### Backend Setup (Optional)
-If you need form submission handling:
+2. Open `index.html` in your browser or use a local server:
 ```bash
-npm install express cors helmet express-rate-limit validator
-```
-See `backend-example.js` for implementation.
+# Using Python
+python -m http.server 8000
 
-## 📝 Customization Guide
-
-### Colors
-The site uses a brown/black theme. To change colors, edit CSS variables in `styles.css`:
-```css
-/* Primary brown: #8b7355 */
-/* Dark brown: #6b5644 */
-/* Light brown: #a68968 */
-/* Background: #1a1410 */
+# Using Node.js
+npx serve
 ```
 
-### Sections
-- **Hero**: Update name and tagline in `script.js`
-- **About**: Edit cards in HTML
-- **Skills**: Modify progress bars and percentages
-- **Projects**: Add/remove project cards
-- **Testimonials**: Update testimonial content
-- **Contact**: Change email and phone
+3. Visit `http://localhost:8000`
 
-## 🧪 Testing
+## 🚀 Deployment
 
-### Security Testing Tools:
-- [Mozilla Observatory](https://observatory.mozilla.org/)
-- [Security Headers](https://securityheaders.com/)
-- [SSL Labs](https://www.ssllabs.com/ssltest/)
+### Vercel (Recommended)
+1. Push to GitHub
+2. Import project in Vercel
+3. Deploy automatically
 
-### Manual Testing:
-```javascript
-// Test XSS protection in form fields
-<script>alert('XSS')</script>
+### Netlify
+1. Drag and drop folder to Netlify
+2. Or connect GitHub repository
+3. Deploy automatically
 
-// Test rate limiting
-// Submit form 4+ times quickly
+### Traditional Hosting
+1. Upload all files via FTP
+2. Ensure `.htaccess` is uploaded for Apache servers
+3. Configure SSL certificate
 
-// Test honeypot
-// Fill hidden "website" field
-```
+## 🔒 Security Features
 
-## 📚 Documentation
+- **XSS Protection** - Input sanitization and validation
+- **CSRF Protection** - Token-based form security
+- **Rate Limiting** - Prevents spam and abuse
+- **Content Security Policy** - Restricts resource loading
+- **Secure Headers** - X-Frame-Options, X-Content-Type-Options
+- **Honeypot Fields** - Bot detection
 
-- **SECURITY.md** - Complete security implementation guide
-- **DEPLOYMENT.md** - Step-by-step deployment instructions
-- **backend-example.js** - Secure backend code example
+## 📝 Customization
 
-## 🌐 Browser Support
+### Update Personal Information
+1. Edit `index.html` - Update name, bio, skills, projects
+2. Edit `cv.html` - Update resume details
+3. Replace `assets/images/profilepic.jpg` with your photo
 
-- Chrome (latest)
-- Firefox (latest)
-- Safari (latest)
-- Edge (latest)
-- Mobile browsers
+### Change Colors
+1. Open `css/styles.css`
+2. Find color variables (search for `#1e3a8a`, `#3b82f6`)
+3. Replace with your preferred colors
+
+### Add Projects
+1. Find the projects section in `index.html`
+2. Duplicate a project card
+3. Update title, description, links, and category
+
+## 📧 Contact Form Setup
+
+To enable the contact form:
+1. Set up a backend service (FormSpree, EmailJS, or custom)
+2. Update form action in `js/script.js`
+3. Add reCAPTCHA keys if needed
 
 ## 📄 License
 
-Free to use for personal portfolios. Attribution appreciated.
+This project is open source and available under the [MIT License](LICENSE).
 
-## 🤝 Contributing
+## 👤 Author
 
-Feel free to submit issues or pull requests for improvements.
-
-## 📞 Contact
-
-Emmanuel Joshua R. Felipe
+**Emmanuel Joshua R. Felipe**
 - Email: felipeemmanueljoshua0@gmail.com
 - Phone: 09564359134
+- Portfolio: [Your Website URL]
+
+## 🙏 Acknowledgments
+
+- Font Awesome for icons
+- Google Fonts for typography
+- Inspiration from modern portfolio designs
 
 ---
 
-**Built with security in mind** 🔒
+Made with ❤️ by Emmanuel Joshua R. Felipe

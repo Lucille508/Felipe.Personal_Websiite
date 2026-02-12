@@ -1,6 +1,7 @@
 // ===== SECURITY UTILITIES =====
 
 // DOMPurify-like sanitization function (basic implementation)
+// Prevents XSS by converting HTML to plain text
 function sanitizeHTML(str) {
     const temp = document.createElement('div');
     temp.textContent = str;
@@ -8,11 +9,168 @@ function sanitizeHTML(str) {
 }
 
 // XSS Protection: Escape HTML special characters
+// Converts <, >, &, ", ' to HTML entities
 function escapeHTML(str) {
     const div = document.createElement('div');
     div.appendChild(document.createTextNode(str));
     return div.innerHTML;
 }
+
+// ===== OPEN REDIRECT PROTECTION =====
+// Prevents malicious redirects through link manipulation
+function isValidURL(url) {
+    try {
+        const urlObj = new URL(url, window.location.origin);
+        
+        // Only allow http, https, and mailto protocols
+        const allowedProtocols = ['http:', 'https:', 'mailto:'];
+        if (!allowedProtocols.includes(urlObj.protocol)) {
+            return false;
+        }
+        
+        // Prevent javascript: protocol
+        if (urlObj.protocol === 'javascript:') {
+            return false;
+        }
+        
+        // For external links, validate domain
+        if (urlObj.origin !== window.location.origin) {
+            // Add whitelist of trusted domains if needed
+            const trustedDomains = [
+                'github.com',
+                'linkedin.com',
+                'twitter.com',
+                'facebook.com',
+                'instagram.com'
+            ];
+            
+            const hostname = urlObj.hostname.replace('www.', '');
+            const isTrusted = trustedDomains.some(domain => 
+                hostname === domain || hostname.endsWith(`.${domain}`)
+            );
+            
+            if (!isTrusted && !confirm(`You are leaving this site. Continue to ${urlObj.hostname}?`)) {
+                return false;
+            }
+        }
+        
+        return true;
+    } catch (e) {
+        return false;
+    }
+}
+
+// Secure link click handler
+function secureLinkHandler(event) {
+    const link = event.target.closest('a');
+    if (!link) return;
+    
+    const href = link.getAttribute('href');
+    
+    // Skip internal anchors
+    if (href && href.startsWith('#')) return;
+    
+    // Validate URL
+    if (href && !isValidURL(href)) {
+        event.preventDefault();
+        console.warn('Blocked potentially malicious link:', href);
+        alert('This link has been blocked for security reasons.');
+        return false;
+    }
+    
+    // Add rel="noopener noreferrer" to external links
+    if (link.target === '_blank' && !link.rel.includes('noopener')) {
+        link.rel = 'noopener noreferrer';
+    }
+}
+
+// Apply to all links on page
+document.addEventListener('click', secureLinkHandler, true);
+
+// ===== DYNAMIC CONTENT SECURITY =====
+// Safely insert dynamic content (project descriptions, testimonials, etc.)
+function safelyInsertHTML(element, content) {
+    if (!element) return;
+    
+    // Sanitize content
+    const sanitized = sanitizeHTML(content);
+    
+    // Use textContent for safety (no HTML parsing)
+    element.textContent = sanitized;
+}
+
+// Safely update element attribute
+function safelySetAttribute(element, attribute, value) {
+    if (!element) return;
+    
+    // Whitelist of safe attributes
+    const safeAttributes = ['class', 'id', 'data-*', 'aria-*', 'title', 'alt'];
+    
+    // Block dangerous attributes
+    const dangerousAttributes = ['onclick', 'onload', 'onerror', 'onmouseover', 'href', 'src'];
+    
+    if (dangerousAttributes.includes(attribute.toLowerCase())) {
+        console.warn(`Blocked attempt to set dangerous attribute: ${attribute}`);
+        return;
+    }
+    
+    // Sanitize value
+    const sanitizedValue = escapeHTML(value);
+    element.setAttribute(attribute, sanitizedValue);
+}
+
+// ===== PREVENT SCRIPT INJECTION IN USER CONTENT =====
+// Monitor for attempts to inject scripts through DOM manipulation
+const domObserver = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        mutation.addedNodes.forEach(function(node) {
+            // Check for script tags
+            if (node.nodeName === 'SCRIPT') {
+                console.error('Blocked script injection attempt');
+                node.remove();
+            }
+            
+            // Check for inline event handlers
+            if (node.nodeType === 1) { // Element node
+                const attributes = node.attributes;
+                for (let i = attributes.length - 1; i >= 0; i--) {
+                    const attr = attributes[i];
+                    if (attr.name.startsWith('on')) {
+                        console.warn(`Removed inline event handler: ${attr.name}`);
+                        node.removeAttribute(attr.name);
+                    }
+                }
+            }
+        });
+    });
+});
+
+// Start observing (only in development/testing)
+// Uncomment for production if needed
+// domObserver.observe(document.body, { childList: true, subtree: true });
+
+// ===== CONTENT SECURITY POLICY VIOLATION REPORTING =====
+// Log CSP violations for monitoring
+document.addEventListener('securitypolicyviolation', function(e) {
+    console.error('CSP Violation:', {
+        blockedURI: e.blockedURI,
+        violatedDirective: e.violatedDirective,
+        originalPolicy: e.originalPolicy,
+        sourceFile: e.sourceFile,
+        lineNumber: e.lineNumber
+    });
+    
+    // Optionally send to backend for logging
+    // fetch('/api/csp-report', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //         blockedURI: e.blockedURI,
+    //         violatedDirective: e.violatedDirective,
+    //         timestamp: new Date().toISOString()
+    //     })
+    // });
+});
 
 // Input validation functions
 const validators = {

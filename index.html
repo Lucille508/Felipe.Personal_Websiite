@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Security Headers (Meta Tags) -->
+    <!-- ============================================ -->
+    <!-- SECURITY HEADERS (Meta Tags)                -->
+    <!-- These headers protect against common attacks -->
+    <!-- ============================================ -->
+    
+    <!-- Prevents MIME type sniffing attacks -->
+    <!-- Ensures browsers respect declared content types -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    
+    <!-- Prevents clickjacking attacks -->
+    <!-- Blocks site from being embedded in iframes -->
     <meta http-equiv="X-Frame-Options" content="DENY">
+    
+    <!-- Enables browser XSS protection -->
+    <!-- Blocks pages if XSS attack detected -->
     <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    
+    <!-- Controls referrer information leakage -->
+    <!-- Protects user privacy when navigating away -->
     <meta name="referrer" content="strict-origin-when-cross-origin">
     
-    <!-- Content Security Policy -->
+    <!-- Content Security Policy (CSP) -->
+    <!-- Prevents XSS, data injection, and unauthorized resource loading -->
+    <!-- Whitelist approach: only specified sources allowed -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     
     <title>Emmanuel Joshua R. Felipe Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <!-- Sticky Navigation Bar with Mobile Menu -->
@@ -76,7 +93,7 @@
             <div class="about-content">
                 <!-- Profile image placeholder -->
                 <div class="about-image">
-                    <img src="profile-placeholder.jpg" alt="Emmanuel Joshua R. Felipe" class="profile-img">
+                    <img src="profilepic.jpg" alt="Emmanuel Joshua R. Felipe" class="profile-img">
                     <!-- Replace 'profile-placeholder.jpg' with your actual image path -->
                 </div>
                 
@@ -431,11 +448,11 @@
                     </div>
                     
                     <!-- Download CV Button -->
-                    <a href="#" class="download-cv-btn" download>
-                        <span class="cv-icon">�</span>
-                        Download CV
+                    <a href="cv.html" class="download-cv-btn" target="_blank">
+                        <span class="cv-icon">📄</span>
+                        View CV
                     </a>
-                    <!-- Replace # with actual CV file path -->
+                    <!-- Opens CV in new tab -->
                     
                     <!-- Social media links -->
                     <h3 style="margin-top: 2rem;">Connect With Me</h3>
@@ -464,35 +481,70 @@
                 </div>
                 
                 <!-- Contact form -->
+                <!-- ============================================ -->
+                <!-- SECURE CONTACT FORM                          -->
+                <!-- Multiple layers of security implemented:     -->
+                <!-- 1. novalidate: Custom validation control     -->
+                <!-- 2. Input sanitization in JavaScript          -->
+                <!-- 3. Pattern validation (regex)                -->
+                <!-- 4. Length limits (maxlength/minlength)       -->
+                <!-- 5. Honeypot field (bot detection)            -->
+                <!-- 6. Rate limiting (3 per minute)              -->
+                <!-- 7. reCAPTCHA v3 (when configured)            -->
+                <!-- ============================================ -->
                 <div class="contact-form">
                     <h3>Send Me a Message</h3>
                     <form id="contactForm" novalidate>
                         <!-- Name field -->
+                        <!-- Pattern: Letters, spaces, hyphens, periods only -->
+                        <!-- Length: 2-100 characters -->
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required maxlength="100" autocomplete="name" pattern="[A-Za-z\s\-\.]{2,100}">
+                            <input type="text" id="name" name="name" required 
+                                   maxlength="100" 
+                                   autocomplete="name" 
+                                   pattern="[A-Za-z\s\-\.]{2,100}"
+                                   title="Name must be 2-100 characters, letters only">
                             <span class="error-message" id="nameError">Please enter a valid name (2-100 characters, letters only)</span>
                         </div>
                         
                         <!-- Email field -->
+                        <!-- Type: email (HTML5 validation) -->
+                        <!-- Length: Max 254 characters (RFC 5321) -->
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required maxlength="254" autocomplete="email">
+                            <input type="email" id="email" name="email" required 
+                                   maxlength="254" 
+                                   autocomplete="email"
+                                   title="Enter a valid email address">
                             <span class="error-message" id="emailError">Please enter a valid email address</span>
                         </div>
                         
                         <!-- Message field -->
+                        <!-- Length: 10-5000 characters -->
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" required maxlength="5000" minlength="10"></textarea>
+                            <textarea id="message" name="message" required 
+                                      maxlength="5000" 
+                                      minlength="10"
+                                      title="Message must be 10-5000 characters"></textarea>
                             <span class="error-message" id="messageError">Please enter a message (10-5000 characters)</span>
                         </div>
                         
                         <!-- Google reCAPTCHA v3 (Add your site key) -->
+                        <!-- Hidden field stores reCAPTCHA token -->
+                        <!-- Token verified on backend -->
                         <input type="hidden" id="recaptchaToken" name="recaptchaToken">
                         
-                        <!-- Honeypot field (hidden from users, catches bots) -->
-                        <input type="text" name="website" id="website" style="display:none" tabindex="-1" autocomplete="off">
+                        <!-- Honeypot field (ANTI-BOT MEASURE) -->
+                        <!-- Hidden from users, visible to bots -->
+                        <!-- If filled, submission is rejected -->
+                        <!-- Uses CSS display:none and tabindex=-1 -->
+                        <input type="text" name="website" id="website" 
+                               style="display:none" 
+                               tabindex="-1" 
+                               autocomplete="off"
+                               aria-hidden="true">
                         
                         <!-- Submit button -->
                         <button type="submit" class="submit-btn">Send Message</button>
@@ -501,7 +553,7 @@
                         <div class="form-message" id="formMessage"></div>
                     </form>
                     
-                    <!-- reCAPTCHA notice -->
+                    <!-- reCAPTCHA notice (GDPR compliance) -->
                     <p class="recaptcha-notice">This site is protected by reCAPTCHA. <a href="#" target="_blank" rel="noopener noreferrer">Privacy Policy</a></p>
                 </div>
             </div>
@@ -568,10 +620,29 @@
         <span id="darkModeIcon">☀️</span>
     </button>
     
-    <!-- Google reCAPTCHA v3 Script (Replace YOUR_SITE_KEY with actual key) -->
+    <!-- ============================================ -->
+    <!-- GOOGLE reCAPTCHA v3 SCRIPT                   -->
+    <!-- Uncomment and add your site key              -->
+    <!-- Get keys: google.com/recaptcha/admin         -->
+    <!-- ============================================ -->
     <!-- <script src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"></script> -->
     
-    <!-- JavaScript file -->
-    <script src="script.js"></script>
+    <!-- ============================================ -->
+    <!-- MAIN JAVASCRIPT FILE                         -->
+    <!-- Contains security utilities and validation   -->
+    <!-- ============================================ -->
+    <script src="js/script.js"></script>
+    
+    <!-- ============================================ -->
+    <!-- OPTIONAL: AUTHENTICATION MODULE              -->
+    <!-- Uncomment if implementing admin panel        -->
+    <!-- ============================================ -->
+    <!-- <script src="security/auth-security.js"></script> -->
+    
+    <!-- ============================================ -->
+    <!-- OPTIONAL: FILE UPLOAD SECURITY               -->
+    <!-- Uncomment if implementing file uploads       -->
+    <!-- ============================================ -->
+    <!-- <script src="security/file-security.js"></script> -->
 </body>
 </html>
