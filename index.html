@@ -28,10 +28,12 @@
     <!-- Content Security Policy (CSP) -->
     <!-- Prevents XSS, data injection, and unauthorized resource loading -->
     <!-- Whitelist approach: only specified sources allowed -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self'; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self';">
     
     <title>Emmanuel Joshua R. Felipe Portfolio</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/styles-new.css">
 </head>
 <body>
     <!-- Sticky Navigation Bar with Mobile Menu -->
@@ -431,7 +433,7 @@
                     
                     <!-- Email -->
                     <div class="contact-item">
-                        <span class="contact-icon">📧</span>
+                        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
                         <div class="contact-text">
                             <h4>Email</h4>
                             <a href="mailto:felipeemmanueljoshua0@gmail.com">felipeemmanueljoshua0@gmail.com</a>
@@ -440,7 +442,7 @@
                     
                     <!-- Phone -->
                     <div class="contact-item">
-                        <span class="contact-icon">📱</span>
+                        <span class="contact-icon"><i class="fas fa-phone"></i></span>
                         <div class="contact-text">
                             <h4>Phone</h4>
                             <a href="tel:09564359134">09564359134</a>
@@ -449,7 +451,7 @@
                     
                     <!-- Download CV Button -->
                     <a href="cv.html" class="download-cv-btn" target="_blank">
-                        <span class="cv-icon">📄</span>
+                        <i class="fas fa-file-pdf cv-icon"></i>
                         View CV
                     </a>
                     <!-- Opens CV in new tab -->
@@ -457,25 +459,20 @@
                     <!-- Social media links -->
                     <h3 style="margin-top: 2rem;">Connect With Me</h3>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="LinkedIn">
-                            <span>💼</span>
-                            <!-- Replace with LinkedIn icon and actual link -->
+                        <a href="https://linkedin.com/in/yourprofile" class="social-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
                         </a>
-                        <a href="#" class="social-link" title="GitHub">
-                            <span>�</span>
-                            <!-- Replace with GitHub icon and actual link -->
+                        <a href="https://github.com/yourprofile" class="social-link" title="GitHub" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
                         </a>
-                        <a href="#" class="social-link" title="Twitter">
-                            <span>🐦</span>
-                            <!-- Replace with Twitter icon and actual link -->
+                        <a href="https://twitter.com/yourprofile" class="social-link" title="Twitter/X" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-x-twitter"></i>
                         </a>
-                        <a href="#" class="social-link" title="Instagram">
-                            <span>📷</span>
-                            <!-- Replace with Instagram icon and actual link -->
+                        <a href="https://instagram.com/yourprofile" class="social-link" title="Instagram" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
                         </a>
-                        <a href="#" class="social-link" title="Facebook">
-                            <span>📘</span>
-                            <!-- Replace with Facebook icon and actual link -->
+                        <a href="https://facebook.com/yourprofile" class="social-link" title="Facebook" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
                         </a>
                     </div>
                 </div>
@@ -588,10 +585,18 @@
                 <div class="footer-social">
                     <h4>Follow Me</h4>
                     <div class="footer-social-links">
-                        <a href="#" class="footer-social-link" title="LinkedIn">💼</a>
-                        <a href="#" class="footer-social-link" title="GitHub">💻</a>
-                        <a href="#" class="footer-social-link" title="Twitter">🐦</a>
-                        <a href="#" class="footer-social-link" title="Instagram">📷</a>
+                        <a href="https://linkedin.com/in/yourprofile" class="footer-social-link" title="LinkedIn" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://github.com/yourprofile" class="footer-social-link" title="GitHub" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://twitter.com/yourprofile" class="footer-social-link" title="Twitter/X" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="https://instagram.com/yourprofile" class="footer-social-link" title="Instagram" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
                         <!-- Replace # with actual social media links -->
                     </div>
                 </div>
@@ -603,21 +608,13 @@
                     <p>&copy; 2026 Emmanuel Joshua R. Felipe. All rights reserved.</p>
                     <!-- Edit copyright year and name as needed -->
                 </div>
-                <div class="footer-credits">
-                    <p>Designed & Built with ❤️ by Emmanuel</p>
-                </div>
             </div>
         </div>
     </footer>
     
     <!-- Back to top button -->
     <button class="back-to-top" id="backToTop" title="Back to Top">
-        <span>↑</span>
-    </button>
-    
-    <!-- Dark/Light mode toggle button -->
-    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark/Light Mode">
-        <span id="darkModeIcon">☀️</span>
+        <i class="fas fa-arrow-up"></i>
     </button>
     
     <!-- ============================================ -->

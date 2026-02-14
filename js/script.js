@@ -522,41 +522,6 @@ messageInput.addEventListener('input', function() {
     }
 });
 
-// ===== DARK/LIGHT MODE TOGGLE =====
-const darkModeToggle = document.getElementById('darkModeToggle');
-const darkModeIcon = document.getElementById('darkModeIcon');
-const body = document.body;
-
-// Check for saved theme preference (default is dark mode)
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme === 'light') {
-    body.classList.add('light-mode');
-    darkModeIcon.textContent = '🌙';
-} else {
-    // Default to dark mode
-    darkModeIcon.textContent = '☀️';
-}
-
-// Toggle between dark and light mode
-darkModeToggle.addEventListener('click', () => {
-    body.classList.toggle('light-mode');
-    
-    // Update icon and save preference
-    if (body.classList.contains('light-mode')) {
-        darkModeIcon.textContent = '🌙';
-        localStorage.setItem('theme', 'light');
-    } else {
-        darkModeIcon.textContent = '☀️';
-        localStorage.setItem('theme', 'dark');
-    }
-    
-    // Add rotation animation to toggle button
-    darkModeToggle.style.transform = 'rotate(360deg)';
-    setTimeout(() => {
-        darkModeToggle.style.transform = 'rotate(0deg)';
-    }, 300);
-});
-
 // ===== SCROLL ANIMATIONS FOR SECTIONS =====
 const observerOptions = {
     threshold: 0.1,
