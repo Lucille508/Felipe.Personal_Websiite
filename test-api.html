@@ -99,7 +99,7 @@
         async function getEvents() {
             log('Getting events...');
             try {
-                const response = await fetch(`${API_URL}/events`);
+                const response = await fetch(`${API_URL}?action=events`);
                 const data = await response.json();
                 log(`✅ Events received (${data.length} total):<pre>${JSON.stringify(data.slice(0, 3), null, 2)}</pre>`);
             } catch (error) {
@@ -110,7 +110,7 @@
         async function getSummary() {
             log('Getting summary...');
             try {
-                const response = await fetch(`${API_URL}/summary`);
+                const response = await fetch(`${API_URL}?action=summary`);
                 const data = await response.json();
                 log(`✅ Summary received:<pre>${JSON.stringify(data, null, 2)}</pre>`);
             } catch (error) {

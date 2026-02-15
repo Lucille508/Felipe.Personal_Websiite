@@ -1,22 +1,20 @@
 // Vercel Serverless Function for Audit Trail
-const crypto = require('crypto');
-
-// In-memory storage (for demo - use a database in production)
+// In-memory storage (resets on cold starts - use database for production)
 let auditData = [];
 
-// Helper functions
 function hashIP(ip) {
+    const crypto = require('crypto');
     return crypto.createHash('sha256').update(ip).digest('hex').substring(0, 16);
 }
 
 function getClientIP(req) {
     return req.headers['x-forwarded-for']?.split(',')[0] || 
            req.headers['x-real-ip'] || 
+           req.socket?.remoteAddress ||
            'unknown';
 }
 
-// Main handler
-module.exports = async (req, res) => {
+export default function handler(req, res) {
     // Enable CORS
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
@@ -28,11 +26,11 @@ module.exports = async (req, res) => {
     }
     
     const { method, query } = req;
-    const path = query.path ? query.path.join('/') : '';
+    const action = query.action || '';
     
     try {
         // POST /api/audit - Log event
-        if (method === 'POST' && !path) {
+        if (method === 'POST' && !action) {
             const event = req.body;
             
             // Add server data
@@ -46,21 +44,25 @@ module.exports = async (req, res) => {
             
             auditData.push(event);
             
-            // Keep only last 1000 events (memory limit)
+            // Keep only last 1000 events
             if (auditData.length > 1000) {
                 auditData = auditData.slice(-1000);
             }
             
-            return res.status(200).json({ success: true, message: 'Event logged' });
+            return res.status(200).json({ 
+                success: true, 
+                message: 'Event logged',
+                total: auditData.length 
+            });
         }
         
-        // GET /api/audit/events - Get all events
-        if (method === 'GET' && path === 'events') {
+        // GET /api/audit?action=events - Get all events
+        if (method === 'GET' && action === 'events') {
             return res.status(200).json([...auditData].reverse());
         }
         
-        // GET /api/audit/summary - Get summary
-        if (method === 'GET' && path === 'summary') {
+        // GET /api/audit?action=summary - Get summary
+        if (method === 'GET' && action === 'summary') {
             const uniqueVisitors = new Set(auditData.map(e => e.visitorId)).size;
             const eventsByType = {};
             
@@ -75,26 +77,36 @@ module.exports = async (req, res) => {
             });
         }
         
-        // DELETE /api/audit/clear - Clear data
-        if (method === 'DELETE' && path === 'clear') {
+        // DELETE /api/audit?action=clear - Clear data
+        if (method === 'DELETE' && action === 'clear') {
             auditData = [];
-            return res.status(200).json({ success: true, message: 'Data cleared' });
+            return res.status(200).json({ 
+                success: true, 
+                message: 'All data cleared' 
+            });
         }
         
-        // Default response
-        return res.status(200).json({ 
-            message: 'Audit API',
-            currentData: auditData.length,
-            endpoints: [
-                'POST /api/audit',
-                'GET /api/audit/events',
-                'GET /api/audit/summary',
-                'DELETE /api/audit/clear'
-            ]
-        });
+        // GET /api/audit - Default info
+        if (method === 'GET' && !action) {
+            return res.status(200).json({ 
+                message: 'Audit API Running',
+                currentEvents: auditData.length,
+                endpoints: {
+                    'POST /api/audit': 'Log event',
+                    'GET /api/audit?action=events': 'Get all events',
+                    'GET /api/audit?action=summary': 'Get summary',
+                    'DELETE /api/audit?action=clear': 'Clear data'
+                }
+            });
+        }
+        
+        return res.status(405).json({ error: 'Method not allowed' });
         
     } catch (error) {
-        console.error('Error:', error);
-        return res.status(500).json({ error: 'Server error', message: error.message });
+        console.error('API Error:', error);
+        return res.status(500).json({ 
+            error: 'Server error', 
+            message: error.message 
+        });
     }
-};
+}

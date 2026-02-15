@@ -346,12 +346,12 @@
         async function loadData() {
             try {
                 // Load summary
-                const summaryRes = await fetch(`${API_URL}/summary`);
+                const summaryRes = await fetch(`${API_URL}?action=summary`);
                 const summary = await summaryRes.json();
                 updateStats(summary);
 
                 // Load events
-                const eventsRes = await fetch(`${API_URL}/events`);
+                const eventsRes = await fetch(`${API_URL}?action=events`);
                 allEvents = await eventsRes.json();
                 displayEvents(allEvents);
 
@@ -361,7 +361,7 @@
 
             } catch (error) {
                 console.error('Error loading data:', error);
-                showError('Failed to load data. Make sure the backend server is running on port 3000.');
+                showError('Failed to load data. Make sure the backend server is running.');
             }
         }
 
@@ -541,7 +541,7 @@
             }
             
             try {
-                const response = await fetch(`${API_URL}/clear`, {
+                const response = await fetch(`${API_URL}?action=clear`, {
                     method: 'DELETE'
                 });
                 

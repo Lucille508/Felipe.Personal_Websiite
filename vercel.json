@@ -1,10 +1,4 @@
 {
-  "rewrites": [
-    {
-      "source": "/api/audit/:path*",
-      "destination": "/api/audit"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",
