@@ -178,6 +178,97 @@ function getTopPages(logs) {
         .map(([path, count]) => ({ path, count }));
 }
 
+// GET /api/audit/events - Get all events
+app.get('/api/audit/events', (req, res) => {
+    try {
+        const logs = loadLogs();
+        res.json(logs.reverse()); // Most recent first
+    } catch (error) {
+        console.error('Error getting events:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// GET /api/audit/summary - Get summary statistics
+app.get('/api/audit/summary', (req, res) => {
+    try {
+        const logs = loadLogs();
+        
+        const uniqueVisitors = new Set(logs.map(e => e.visitorId)).size;
+        const eventsByType = {};
+        
+        logs.forEach(e => {
+            eventsByType[e.eventType] = (eventsByType[e.eventType] || 0) + 1;
+        });
+        
+        res.json({
+            totalEvents: logs.length,
+            uniqueVisitors,
+            eventsByType
+        });
+    } catch (error) {
+        console.error('Error getting summary:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// DELETE /api/audit/clear - Clear all audit data
+app.delete('/api/audit/clear', (req, res) => {
+    try {
+        saveLogs([]);
+        res.json({ success: true, message: 'All audit data cleared' });
+    } catch (error) {
+        console.error('Error clearing data:', error);
+        res.status(500).json({ success: false, message: 'Failed to clear data' });
+    }
+});
+
+// GET /api/audit/events - Get all events
+app.get('/api/audit/events', (req, res) => {
+    try {
+        const logs = loadLogs();
+        res.json(logs.reverse()); // Most recent first
+    } catch (error) {
+        console.error('Error getting events:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// GET /api/audit/summary - Get summary statistics
+app.get('/api/audit/summary', (req, res) => {
+    try {
+        const logs = loadLogs();
+
+        const uniqueVisitors = new Set(logs.map(e => e.visitorId)).size;
+        const eventsByType = {};
+
+        logs.forEach(e => {
+            eventsByType[e.eventType] = (eventsByType[e.eventType] || 0) + 1;
+        });
+
+        res.json({
+            totalEvents: logs.length,
+            uniqueVisitors,
+            eventsByType
+        });
+    } catch (error) {
+        console.error('Error getting summary:', error);
+        res.status(500).json({ success: false, message: 'Server error' });
+    }
+});
+
+// DELETE /api/audit/clear - Clear all audit data
+app.delete('/api/audit/clear', (req, res) => {
+    try {
+        saveLogs([]);
+        res.json({ success: true, message: 'All audit data cleared' });
+    } catch (error) {
+        console.error('Error clearing data:', error);
+        res.status(500).json({ success: false, message: 'Failed to clear data' });
+    }
+});
+
+
 // Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
