@@ -406,7 +406,7 @@
                                     <td>${new Date(event.timestamp).toLocaleString()}</td>
                                     <td><span class="badge badge-${getBadgeClass(event.eventType)}">${event.eventType}</span></td>
                                     <td><code>${event.visitorId.substring(0, 8)}...</code></td>
-                                    <td>${event.ipAddress || 'N/A'}</td>
+                                    <td>${event.server?.ip || event.ipAddress || 'N/A'}</td>
                                     <td>${event.page || 'N/A'}</td>
                                     <td>${formatEventDetails(event)}</td>
                                 </tr>
@@ -469,7 +469,7 @@
                 if (!visitorsMap.has(event.visitorId)) {
                     visitorsMap.set(event.visitorId, {
                         id: event.visitorId,
-                        ipAddress: event.ipAddress,
+                        ipAddress: event.server?.ip || event.ipAddress || 'N/A',
                         firstVisit: event.timestamp,
                         lastVisit: event.timestamp,
                         eventCount: 0,
@@ -497,11 +497,12 @@
                 return;
             }
             
-            const filteredEvents = allEvents.filter(event => 
-                event.visitorId.toLowerCase().includes(searchTerm) ||
-                (event.ipAddress && event.ipAddress.toLowerCase().includes(searchTerm)) ||
-                event.eventType.toLowerCase().includes(searchTerm)
-            );
+            const filteredEvents = allEvents.filter(event => {
+                const ip = event.server?.ip || event.ipAddress || '';
+                return event.visitorId.toLowerCase().includes(searchTerm) ||
+                       ip.toLowerCase().includes(searchTerm) ||
+                       event.eventType.toLowerCase().includes(searchTerm);
+            });
             
             const filteredVisitors = allVisitors.filter(visitor =>
                 visitor.id.toLowerCase().includes(searchTerm) ||
