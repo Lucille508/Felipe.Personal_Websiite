@@ -4,13 +4,23 @@ A professional, modern portfolio website showcasing my skills, projects, and exp
 
 ## 🚀 Features
 
+### Core Features
 - **Responsive Design** - Works perfectly on all devices
 - **Modern UI/UX** - Clean, professional interface with smooth animations
-- **Dark/Light Mode** - Toggle between themes
 - **Interactive Elements** - Smooth scrolling, typing effects, and transitions
 - **Contact Form** - Secure form with validation and anti-spam measures
 - **CV/Resume** - Downloadable professional resume
 - **Security Features** - XSS protection, input sanitization, rate limiting
+
+### ✨ New Enhanced Features (v2.0)
+- **🎨 Theme Toggle** - Switch between dark and light modes with persistence
+- **📊 Scroll Progress Indicator** - Visual feedback of page scroll position
+- **🖱️ Custom Cursor** - Premium cursor effects on desktop (auto-disabled on mobile)
+- **🎭 Enhanced Animations** - Smooth scroll animations, card hover effects, parallax
+- **⚡ Performance Optimized** - Lazy loading, debounced events, GPU acceleration
+- **♿ Accessibility Enhanced** - WCAG 2.1 compliant, keyboard navigation, screen reader support
+- **🔍 SEO Optimized** - Complete meta tags, Open Graph, Twitter Cards
+- **📱 Mobile Enhanced** - Touch-optimized, responsive enhancements
 
 ## 📁 Project Structure
 
@@ -24,13 +34,18 @@ Personal_Website/
 ├── _headers               # Netlify headers config
 ├── .env.example           # Environment variables template
 ├── .gitignore             # Git ignore rules
+├── ENHANCEMENTS.md        # 🆕 Detailed enhancement documentation
+├── QUICK-START-ENHANCED.md # 🆕 Quick start guide for new features
 │
 ├── css/                   # Stylesheets
-│   ├── styles.css         # Main website styles
-│   └── cv-styles.css      # CV page styles
+│   ├── styles.css         # Original floral theme styles
+│   ├── styles-new.css     # Main dark theme styles
+│   ├── cv-styles.css      # CV page styles
+│   └── enhancements.css   # 🆕 Enhancement styles
 │
 ├── js/                    # JavaScript files
-│   └── script.js          # Main functionality & security
+│   ├── script.js          # Main functionality & security
+│   └── enhancements.js    # 🆕 Enhanced features & interactions
 │
 ├── assets/                # Static assets
 │   ├── images/            # Images and photos
@@ -53,18 +68,24 @@ Personal_Website/
 ## 🛠️ Technologies Used
 
 - **HTML5** - Semantic markup
-- **CSS3** - Modern styling with animations
-- **JavaScript** - Interactive functionality
+- **CSS3** - Modern styling with animations, Grid, Flexbox
+- **JavaScript (ES6+)** - Interactive functionality, modern APIs
+- **Font Awesome 6.5.1** - Icon library
+- **Google Fonts** - Inter & Outfit typography
+- **Web APIs** - IntersectionObserver, PerformanceObserver, Page Visibility
 - **Responsive Design** - Mobile-first approach
-- **Security Best Practices** - XSS protection, input validation
+- **Security Best Practices** - XSS protection, input validation, CSP
 
 ## 🎨 Design Features
 
-- **Professional Navy Blue Theme** - Masculine, corporate aesthetic
-- **Montserrat & Roboto Fonts** - Clean, modern typography
-- **Smooth Animations** - Fade-ins, slide-ups, and transitions
-- **Grid Layouts** - Modern, flexible layouts
+- **Professional Dark Theme** - Modern navy blue aesthetic with light mode option
+- **Clean Typography** - Outfit for headings, Inter for body text
+- **Smooth Animations** - Fade-ins, slide-ups, parallax, and micro-interactions
+- **Grid Layouts** - Modern, flexible, responsive layouts
 - **Card-Based Design** - Clean, organized content sections
+- **Glassmorphism** - Subtle backdrop blur effects
+- **Custom Cursor** - Premium desktop experience
+- **Scroll Progress** - Visual page navigation feedback
 
 ## 📦 Installation
 
@@ -81,9 +102,24 @@ python -m http.server 8000
 
 # Using Node.js
 npx serve
+
+# Using PHP
+php -S localhost:8000
 ```
 
 3. Visit `http://localhost:8000`
+
+## 🚀 Quick Start
+
+See [QUICK-START-ENHANCED.md](QUICK-START-ENHANCED.md) for detailed setup instructions and customization guide.
+
+## 📖 Documentation
+
+- **[ENHANCEMENTS.md](ENHANCEMENTS.md)** - Complete enhancement documentation
+- **[QUICK-START-ENHANCED.md](QUICK-START-ENHANCED.md)** - Quick start guide
+- **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)** - Deployment instructions
+- **[docs/SECURITY.md](docs/SECURITY.md)** - Security documentation
+- **[CHANGELOG.md](CHANGELOG.md)** - Version history
 
 ## 🚀 Deployment
 
@@ -106,10 +142,23 @@ npx serve
 
 - **XSS Protection** - Input sanitization and validation
 - **CSRF Protection** - Token-based form security
-- **Rate Limiting** - Prevents spam and abuse
+- **Rate Limiting** - Prevents spam and abuse (3 submissions per minute)
 - **Content Security Policy** - Restricts resource loading
-- **Secure Headers** - X-Frame-Options, X-Content-Type-Options
+- **Secure Headers** - X-Frame-Options, X-Content-Type-Options, Referrer-Policy
 - **Honeypot Fields** - Bot detection
+- **Input Validation** - Regex patterns, length limits
+- **Safe URL Handling** - Open redirect protection
+
+## ♿ Accessibility Features
+
+- **WCAG 2.1 Compliant** - Level AA standards
+- **Keyboard Navigation** - Full keyboard support
+- **Screen Reader Support** - ARIA labels and live regions
+- **Skip to Content** - Quick navigation link
+- **High Contrast Mode** - Support for visual impairments
+- **Reduced Motion** - Respects user preferences
+- **Focus Indicators** - Clear visual focus states
+- **Semantic HTML** - Proper heading hierarchy
 
 ## 📝 Customization
 
@@ -130,10 +179,69 @@ npx serve
 
 ## 📧 Contact Form Setup
 
-To enable the contact form:
-1. Set up a backend service (FormSpree, EmailJS, or custom)
-2. Update form action in `js/script.js`
-3. Add reCAPTCHA keys if needed
+The contact form uses Web3Forms for email delivery:
+
+1. Get your free access key from [web3forms.com](https://web3forms.com)
+2. Update the access key in `index.html`:
+```html
+<input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+```
+3. Form includes built-in validation, rate limiting, and spam protection
+
+## 🎯 Performance
+
+### Optimization Features
+- Lazy loading images
+- Debounced scroll events
+- GPU-accelerated animations
+- Minified assets (production)
+- Efficient DOM manipulation
+- Performance monitoring
+
+### Metrics (Expected)
+- Lighthouse Score: 95+/100
+- First Contentful Paint: <1s
+- Time to Interactive: <2s
+- Cumulative Layout Shift: <0.1
+
+## 🌐 Browser Support
+
+- ✅ Chrome 90+
+- ✅ Firefox 88+
+- ✅ Safari 14+
+- ✅ Edge 90+
+- ✅ Opera 76+
+- ⚠️ IE 11 (Limited support, no enhancements)
+
+## 📱 Device Support
+
+- ✅ Desktop (1920px+)
+- ✅ Laptop (1366px - 1920px)
+- ✅ Tablet (768px - 1366px)
+- ✅ Mobile (320px - 768px)
+- ✅ Touch devices
+- ✅ High DPI displays
+
+## 🔄 Version History
+
+### Version 2.0.0 (Current)
+- ✨ Added theme toggle (dark/light mode)
+- ✨ Added scroll progress indicator
+- ✨ Added custom cursor (desktop)
+- ✨ Enhanced animations and transitions
+- ⚡ Performance optimizations
+- ♿ Accessibility improvements
+- 🔍 SEO enhancements
+- 📱 Mobile experience improvements
+
+### Version 1.0.0
+- 🎉 Initial release
+- 📄 Portfolio page
+- 📋 CV page
+- 📧 Contact form
+- 🔒 Security features
+
+See [CHANGELOG.md](CHANGELOG.md) for complete version history.
 
 ## 📄 License
 
@@ -144,14 +252,37 @@ This project is open source and available under the [MIT License](LICENSE).
 **Emmanuel Joshua R. Felipe**
 - Email: felipeemmanueljoshua0@gmail.com
 - Phone: 09564359134
+- LinkedIn: [Emmanuel Joshua Felipe](https://www.linkedin.com/in/emmanuel-joshua-felipe-4a93a73aa/)
+- GitHub: [Your GitHub](https://github.com/yourprofile)
 - Portfolio: [Your Website URL]
 
 ## 🙏 Acknowledgments
 
 - Font Awesome for icons
 - Google Fonts for typography
+- Web3Forms for contact form backend
 - Inspiration from modern portfolio designs
+- Open source community
+
+## 🤝 Contributing
+
+Contributions, issues, and feature requests are welcome!
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 💬 Feedback
+
+If you have any feedback or suggestions, please reach out:
+- Open an issue on GitHub
+- Email: felipeemmanueljoshua0@gmail.com
+- Connect on LinkedIn
 
 ---
 
-Made with ❤️ by Emmanuel Joshua R. Felipe
+**Made with ❤️ by Emmanuel Joshua R. Felipe**
+
+*Last Updated: February 15, 2026 | Version 2.0.0*

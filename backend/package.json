@@ -1,0 +1,24 @@
+{
+  "name": "portfolio-audit-backend",
+  "version": "1.0.0",
+  "description": "Backend API for portfolio website audit trail",
+  "main": "audit-api.js",
+  "scripts": {
+    "start": "node audit-api.js",
+    "dev": "nodemon audit-api.js"
+  },
+  "keywords": [
+    "audit",
+    "analytics",
+    "tracking",
+    "portfolio"
+  ],
+  "author": "Emmanuel Joshua R. Felipe",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
