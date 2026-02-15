@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Test</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 2rem;
+            background: #1e1e1e;
+            color: #00ff00;
+        }
+        .test {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #2d2d2d;
+            border-left: 4px solid #00ff00;
+        }
+        .error {
+            border-left-color: #ff0000;
+            color: #ff0000;
+        }
+        button {
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            background: #00ff00;
+            color: #000;
+            border: none;
+            cursor: pointer;
+            font-family: monospace;
+        }
+        pre {
+            background: #000;
+            padding: 1rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔧 API Test Page</h1>
+    <p>Testing: <span id="apiUrl"></span></p>
+    
+    <div>
+        <button onclick="testAPI()">Test API Connection</button>
+        <button onclick="sendTestEvent()">Send Test Event</button>
+        <button onclick="getEvents()">Get Events</button>
+        <button onclick="getSummary()">Get Summary</button>
+    </div>
+    
+    <div id="results"></div>
+
+    <script>
+        const API_URL = window.location.origin + '/api/audit';
+        document.getElementById('apiUrl').textContent = API_URL;
+
+        function log(message, isError = false) {
+            const div = document.createElement('div');
+            div.className = 'test' + (isError ? ' error' : '');
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong><br>${message}`;
+            document.getElementById('results').prepend(div);
+        }
+
+        async function testAPI() {
+            log('Testing API connection...');
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                log(`✅ API Connected!<pre>${JSON.stringify(data, null, 2)}</pre>`);
+            } catch (error) {
+                log(`❌ API Error: ${error.message}`, true);
+            }
+        }
+
+        async function sendTestEvent() {
+            log('Sending test event...');
+            try {
+                const event = {
+                    eventType: 'test',
+                    visitorId: 'test-' + Date.now(),
+                    timestamp: new Date().toISOString(),
+                    page: '/test',
+                    message: 'Test event from test page'
+                };
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(event)
+                });
+                
+                const data = await response.json();
+                log(`✅ Event sent!<pre>${JSON.stringify(data, null, 2)}</pre>`);
+            } catch (error) {
+                log(`❌ Send Error: ${error.message}`, true);
+            }
+        }
+
+        async function getEvents() {
+            log('Getting events...');
+            try {
+                const response = await fetch(`${API_URL}/events`);
+                const data = await response.json();
+                log(`✅ Events received (${data.length} total):<pre>${JSON.stringify(data.slice(0, 3), null, 2)}</pre>`);
+            } catch (error) {
+                log(`❌ Get Events Error: ${error.message}`, true);
+            }
+        }
+
+        async function getSummary() {
+            log('Getting summary...');
+            try {
+                const response = await fetch(`${API_URL}/summary`);
+                const data = await response.json();
+                log(`✅ Summary received:<pre>${JSON.stringify(data, null, 2)}</pre>`);
+            } catch (error) {
+                log(`❌ Get Summary Error: ${error.message}`, true);
+            }
+        }
+
+        // Auto-test on load
+        window.addEventListener('load', () => {
+            setTimeout(testAPI, 500);
+        });
+    </script>
+</body>
+</html>
