@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f23;
+            color: #e0e0e0;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
+            height: 100vh;
+            background: #1a1a2e;
+            padding: 2rem 0;
+            border-right: 1px solid #2d2d44;
+        }
+
+        .logo {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo h2 {
+            color: #00d4ff;
+            font-size: 1.5rem;
+        }
+
+        .nav-item {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #a0a0a0;
+        }
+
+        .nav-item:hover, .nav-item.active {
+            background: #2d2d44;
+            color: #00d4ff;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 2rem;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 100%);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid #2d2d44;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: #00d4ff;
+        }
+
+        .stat-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #00d4ff, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-card h3 {
+            font-size: 2.5rem;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-card p {
+            color: #a0a0a0;
+        }
+
+        .section {
+            background: #1a1a2e;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border: 1px solid #2d2d44;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            color: #00d4ff;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #00d4ff, #667eea);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff4757, #ff6348);
+            color: white;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #2ed573, #7bed9f);
+            color: white;
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem;
+            background: #2d2d44;
+            border: 1px solid #3d3d54;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #00d4ff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #2d2d44;
+        }
+
+        th {
+            background: #2d2d44;
+            color: #00d4ff;
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background: #2d2d44;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+        }
+
+        .badge-info {
+            background: rgba(0, 212, 255, 0.2);
+            color: #00d4ff;
+        }
+
+        .badge-warning {
+            background: rgba(255, 195, 18, 0.2);
+            color: #ffc312;
+        }
+
+        .badge-danger {
+            background: rgba(255, 71, 87, 0.2);
+            color: #ff4757;
+        }
+
+        .chart-container {
+            background: #2d2d44;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .visitor-card {
+            background: #2d2d44;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            border-left: 4px solid #00d4ff;
+        }
+
+        .visitor-card:hover {
+            background: #3d3d54;
+        }
+
+        .visitor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .visitor-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            color: #a0a0a0;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-value {
+            color: #e0e0e0;
+            font-weight: 600;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 0.5rem 1.5rem;
+            background: #2d2d44;
+            border: 1px solid #3d3d54;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(135deg, #00d4ff, #667eea);
+            border-color: #00d4ff;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #a0a0a0;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .loading i {
+            font-size: 3rem;
+            color: #00d4ff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% { transform: rotate(360deg); }
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .ip-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .country-flag {
+            font-size: 1.2rem;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2rem;
+            top: 0;
+            width: 12px;
+            height: 12px;
+            background: #00d4ff;
+            border-radius: 50%;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -1.7rem;
+            top: 12px;
+            width: 2px;
+            height: calc(100% - 12px);
+            background: #2d2d44;
+        }
+
+        .timeline-item:last-child::after {
+            display: none;
+        }
+
+        .export-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <h2><i class="fas fa-shield-alt"></i> Admin</h2>
+        </div>
+        <div class="nav-item active" onclick="showPage('dashboard')">
+            <i class="fas fa-chart-line"></i>
+            <span>Dashboard</span>
+        </div>
+        <div class="nav-item" onclick="showPage('visitors')">
+            <i class="fas fa-users"></i>
+            <span>Visitors</span>
+        </div>
+        <div class="nav-item" onclick="showPage('events')">
+            <i class="fas fa-list"></i>
+            <span>Events</span>
+        </div>
+        <div class="nav-item" onclick="showPage('analytics')">
+            <i class="fas fa-chart-pie"></i>
+            <span>Analytics</span>
+        </div>
+        <div class="nav-item" onclick="showPage('realtime')">
+            <i class="fas fa-broadcast-tower"></i>
+            <span>Real-time</span>
+        </div>
+        <div class="nav-item" onclick="showPage('settings')">
+            <i class="fas fa-cog"></i>
+            <span>Settings</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Dashboard Page -->
+        <div id="dashboard" class="page active">
+            <div class="header">
+                <h1><i class="fas fa-chart-line"></i> Advanced Analytics Dashboard</h1>
+                <p>Real-time visitor tracking and analytics</p>
+            </div>
+
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="icon">👥</div>
+                    <h3 id="totalVisitors">0</h3>
+                    <p>Total Visitors</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">📊</div>
+                    <h3 id="totalEvents">0</h3>
+                    <p>Total Events</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">📝</div>
+                    <h3 id="totalForms">0</h3>
+                    <p>Form Submissions</p>
+                </div>
+                <div class="stat-card">
+                    <div class="icon">🖱️</div>
+                    <h3 id="totalClicks">0</h3>
+                    <p>Total Clicks</p>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="🔍 Search by IP, visitor ID, or event type...">
+                </div>
+                <button class="btn btn-primary" onclick="loadData()">
+                    <i class="fas fa-sync"></i> Refresh
+                </button>
+                <button class="btn btn-success" onclick="exportData()">
+                    <i class="fas fa-download"></i> Export
+                </button>
+                <button class="btn btn-danger" onclick="clearData()">
+                    <i class="fas fa-trash"></i> Clear All
+                </button>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="section">
+                <div class="section-header">
+                    <h2><i class="fas fa-clock"></i> Recent Activity</h2>
+                </div>
+                <div id="recentActivity">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        <p>Loading activity...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Visitors Page -->
+        <div id="visitors" class="page">
+            <div class="header">
+                <h1><i class="fas fa-users"></i> Visitor Management</h1>
+                <p>Detailed visitor information and tracking</p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>All Visitors</h2>
+                </div>
+                <div id="visitorsContent">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        <p>Loading visitors...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Events Page -->
+        <div id="events" class="page">
+            <div class="header">
+                <h1><i class="fas fa-list"></i> Event Log</h1>
+                <p>Complete event history and details</p>
+            </div>
+
+            <div class="filter-tabs">
+                <div class="filter-tab active" onclick="filterEvents('all')">All Events</div>
+                <div class="filter-tab" onclick="filterEvents('page_view')">Page Views</div>
+                <div class="filter-tab" onclick="filterEvents('click')">Clicks</div>
+                <div class="filter-tab" onclick="filterEvents('form_submit')">Forms</div>
+                <div class="filter-tab" onclick="filterEvents('scroll')">Scrolls</div>
+            </div>
+
+            <div class="section">
+                <div id="eventsContent">
+                    <div class="loading">
+                        <i class="fas fa-spinner"></i>
+                        <p>Loading events...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Analytics Page -->
+        <div id="analytics" class="page">
+            <div class="header">
+                <h1><i class="fas fa-chart-pie"></i> Analytics</h1>
+                <p>Insights and statistics</p>
+            </div>
+
+            <div class="section">
+                <h2>Coming Soon</h2>
+                <p>Advanced analytics charts and graphs will be displayed here.</p>
+            </div>
+        </div>
+
+        <!-- Real-time Page -->
+        <div id="realtime" class="page">
+            <div class="header">
+                <h1><i class="fas fa-broadcast-tower"></i> Real-time Monitoring</h1>
+                <p>Live visitor activity</p>
+            </div>
+
+            <div class="section">
+                <div class="section-header">
+                    <h2>Live Activity Feed</h2>
+                    <span class="badge badge-success"><i class="fas fa-circle"></i> Live</span>
+                </div>
+                <div id="realtimeContent">
+                    <div class="timeline" id="activityTimeline">
+                        <p class="empty-state">Waiting for activity...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Page -->
+        <div id="settings" class="page">
+            <div class="header">
+                <h1><i class="fas fa-cog"></i> Settings</h1>
+                <p>Configure your dashboard</p>
+            </div>
+
+            <div class="section">
+                <h2>Dashboard Settings</h2>
+                <p>Settings panel coming soon...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = window.location.origin + '/api/audit';
+        let allEvents = [];
+        let allVisitors = [];
+        let currentFilter = 'all';
+
+        // Load data on page load
+        window.addEventListener('DOMContentLoaded', loadData);
+
+        // Auto-refresh every 30 seconds
+        setInterval(loadData, 30000);
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', filterData);
+
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Remove active from all nav items
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Add active to clicked nav item
+            event.target.closest('.nav-item').classList.add('active');
+        }
+
+        async function loadData() {
+            try {
+                console.log('Loading data from:', API_URL);
+                
+                // Load summary
+                const summaryRes = await fetch(`${API_URL}?action=summary`);
+                const summary = await summaryRes.json();
+                updateStats(summary);
+
+                // Load events
+                const eventsRes = await fetch(`${API_URL}?action=events`);
+                allEvents = await eventsRes.json();
+                console.log('Events loaded:', allEvents);
+                
+                displayRecentActivity(allEvents.slice(0, 10));
+                displayEvents(allEvents);
+
+                // Extract unique visitors
+                allVisitors = extractVisitors(allEvents);
+                displayVisitors(allVisitors);
+
+            } catch (error) {
+                console.error('Error loading data:', error);
+            }
+        }
+
+        function updateStats(summary) {
+            document.getElementById('totalVisitors').textContent = summary.uniqueVisitors || 0;
+            document.getElementById('totalEvents').textContent = summary.totalEvents || 0;
+            document.getElementById('totalForms').textContent = summary.eventsByType?.form_submit || 0;
+            document.getElementById('totalClicks').textContent = summary.eventsByType?.click || 0;
+        }
+
+        function displayRecentActivity(events) {
+            const container = document.getElementById('recentActivity');
+            
+            if (events.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No activity yet</p></div>';
+                return;
+            }
+
+            container.innerHTML = events.map(event => `
+                <div class="visitor-card">
+                    <div class="visitor-header">
+                        <div>
+                            <span class="badge badge-${getBadgeClass(event.eventType)}">${event.eventType}</span>
+                            <strong style="margin-left: 1rem;">${new Date(event.timestamp).toLocaleString()}</strong>
+                        </div>
+                        <div class="ip-location">
+                            <span class="country-flag">🌐</span>
+                            <code>${event.server?.ip || 'N/A'}</code>
+                        </div>
+                    </div>
+                    <div class="visitor-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Visitor ID</span>
+                            <span class="detail-value">${event.visitorId.substring(0, 12)}...</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Page</span>
+                            <span class="detail-value">${event.page || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Browser</span>
+                            <span class="detail-value">${event.browser || 'N/A'}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Device</span>
+                            <span class="detail-value">${event.device || 'N/A'}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayVisitors(visitors) {
+            const container = document.getElementById('visitorsContent');
+            
+            if (visitors.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-user-slash"></i><p>No visitors yet</p></div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Visitor ID</th>
+                            <th>IP Address</th>
+                            <th>First Visit</th>
+                            <th>Last Visit</th>
+                            <th>Events</th>
+                            <th>Browser</th>
+                            <th>Device</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${visitors.map(visitor => `
+                            <tr>
+                                <td><code>${visitor.id.substring(0, 12)}...</code></td>
+                                <td><span class="ip-location"><span class="country-flag">🌐</span> ${visitor.ipAddress || 'N/A'}</span></td>
+                                <td>${new Date(visitor.firstVisit).toLocaleString()}</td>
+                                <td>${new Date(visitor.lastVisit).toLocaleString()}</td>
+                                <td><span class="badge badge-info">${visitor.eventCount}</span></td>
+                                <td>${visitor.browser || 'N/A'}</td>
+                                <td>${visitor.device || 'N/A'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function displayEvents(events) {
+            const container = document.getElementById('eventsContent');
+            
+            let filteredEvents = events;
+            if (currentFilter !== 'all') {
+                filteredEvents = events.filter(e => e.eventType === currentFilter);
+            }
+            
+            if (filteredEvents.length === 0) {
+                container.innerHTML = '<div class="empty-state"><i class="fas fa-inbox"></i><p>No events found</p></div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Type</th>
+                            <th>Visitor</th>
+                            <th>IP Address</th>
+                            <th>Page</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${filteredEvents.map(event => `
+                            <tr>
+                                <td>${new Date(event.timestamp).toLocaleString()}</td>
+                                <td><span class="badge badge-${getBadgeClass(event.eventType)}">${event.eventType}</span></td>
+                                <td><code>${event.visitorId.substring(0, 8)}...</code></td>
+                                <td>${event.server?.ip || 'N/A'}</td>
+                                <td>${event.page || 'N/A'}</td>
+                                <td>${formatEventDetails(event)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function extractVisitors(events) {
+            const visitorsMap = new Map();
+            
+            events.forEach(event => {
+                if (!visitorsMap.has(event.visitorId)) {
+                    visitorsMap.set(event.visitorId, {
+                        id: event.visitorId,
+                        ipAddress: event.server?.ip || 'N/A',
+                        firstVisit: event.timestamp,
+                        lastVisit: event.timestamp,
+                        eventCount: 0,
+                        browser: event.browser,
+                        device: event.device
+                    });
+                }
+                
+                const visitor = visitorsMap.get(event.visitorId);
+                visitor.eventCount++;
+                visitor.lastVisit = event.timestamp;
+            });
+            
+            return Array.from(visitorsMap.values()).sort((a, b) => 
+                new Date(b.lastVisit) - new Date(a.lastVisit)
+            );
+        }
+
+        function filterEvents(type) {
+            currentFilter = type;
+            
+            // Update active tab
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            displayEvents(allEvents);
+        }
+
+        function filterData() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            if (!searchTerm) {
+                displayRecentActivity(allEvents.slice(0, 10));
+                return;
+            }
+            
+            const filtered = allEvents.filter(event => {
+                const ip = event.server?.ip || '';
+                return event.visitorId.toLowerCase().includes(searchTerm) ||
+                       ip.toLowerCase().includes(searchTerm) ||
+                       event.eventType.toLowerCase().includes(searchTerm);
+            });
+            
+            displayRecentActivity(filtered.slice(0, 10));
+        }
+
+        function formatEventDetails(event) {
+            switch(event.eventType) {
+                case 'click':
+                    return event.target || 'Unknown';
+                case 'form_submit':
+                    return 'Form submitted';
+                case 'scroll':
+                    return `${event.scrollDepth || 0}%`;
+                default:
+                    return '-';
+            }
+        }
+
+        function getBadgeClass(eventType) {
+            const classes = {
+                'page_view': 'info',
+                'click': 'success',
+                'form_submit': 'warning',
+                'scroll': 'info'
+            };
+            return classes[eventType] || 'info';
+        }
+
+        async function exportData() {
+            const dataStr = JSON.stringify(allEvents, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `audit-data-${new Date().toISOString()}.json`;
+            link.click();
+        }
+
+        async function clearData() {
+            if (!confirm('Are you sure you want to delete all audit data? This cannot be undone.')) {
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_URL}?action=clear`, {
+                    method: 'DELETE'
+                });
+                
+                if (response.ok) {
+                    alert('All data cleared successfully!');
+                    loadData();
+                }
+            } catch (error) {
+                console.error('Error clearing data:', error);
+                alert('Error clearing data');
+            }
+        }
+    </script>
+</body>
+</html>
