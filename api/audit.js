@@ -27,11 +27,12 @@ module.exports = async (req, res) => {
         return res.status(200).end();
     }
     
-    const { method, url } = req;
+    const { method, query } = req;
+    const path = query.path ? query.path.join('/') : '';
     
     try {
         // POST /api/audit - Log event
-        if (method === 'POST' && url === '/api/audit') {
+        if (method === 'POST' && !path) {
             const event = req.body;
             
             // Add server data
@@ -54,12 +55,12 @@ module.exports = async (req, res) => {
         }
         
         // GET /api/audit/events - Get all events
-        if (method === 'GET' && url.includes('/events')) {
-            return res.status(200).json(auditData.reverse());
+        if (method === 'GET' && path === 'events') {
+            return res.status(200).json([...auditData].reverse());
         }
         
         // GET /api/audit/summary - Get summary
-        if (method === 'GET' && url.includes('/summary')) {
+        if (method === 'GET' && path === 'summary') {
             const uniqueVisitors = new Set(auditData.map(e => e.visitorId)).size;
             const eventsByType = {};
             
@@ -75,7 +76,7 @@ module.exports = async (req, res) => {
         }
         
         // DELETE /api/audit/clear - Clear data
-        if (method === 'DELETE' && url.includes('/clear')) {
+        if (method === 'DELETE' && path === 'clear') {
             auditData = [];
             return res.status(200).json({ success: true, message: 'Data cleared' });
         }
@@ -83,6 +84,7 @@ module.exports = async (req, res) => {
         // Default response
         return res.status(200).json({ 
             message: 'Audit API',
+            currentData: auditData.length,
             endpoints: [
                 'POST /api/audit',
                 'GET /api/audit/events',

@@ -323,10 +323,16 @@
     </div>
 
     <script>
-        // Auto-detect API URL based on environment
-        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        // Detect API URL - use deployed API for production
+        const isLocal = window.location.hostname === 'localhost' || 
+                       window.location.hostname === '127.0.0.1' ||
+                       window.location.hostname === '';
+        
+        const API_URL = isLocal 
             ? 'http://localhost:3000/api/audit'
-            : window.location.origin + '/api/audit'; // Use full origin for deployed version
+            : window.location.origin + '/api/audit';
+        
+        console.log('API URL:', API_URL); // Debug log
         
         let allEvents = [];
         let allVisitors = [];
