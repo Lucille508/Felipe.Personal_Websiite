@@ -345,23 +345,30 @@
 
         async function loadData() {
             try {
+                console.log('Loading data from:', API_URL);
+                
                 // Load summary
                 const summaryRes = await fetch(`${API_URL}?action=summary`);
+                console.log('Summary response status:', summaryRes.status);
                 const summary = await summaryRes.json();
+                console.log('Summary data:', summary);
                 updateStats(summary);
 
                 // Load events
                 const eventsRes = await fetch(`${API_URL}?action=events`);
+                console.log('Events response status:', eventsRes.status);
                 allEvents = await eventsRes.json();
+                console.log('Events loaded:', allEvents.length);
                 displayEvents(allEvents);
 
                 // Extract unique visitors
                 allVisitors = extractVisitors(allEvents);
+                console.log('Visitors extracted:', allVisitors.length);
                 displayVisitors(allVisitors);
 
             } catch (error) {
                 console.error('Error loading data:', error);
-                showError('Failed to load data. Make sure the backend server is running.');
+                showError('Failed to load data. Error: ' + error.message);
             }
         }
 
