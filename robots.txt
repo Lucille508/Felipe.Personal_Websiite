@@ -1,0 +1,11 @@
+# Allow all crawlers to index the main site
+User-agent: *
+Allow: /
+
+# Block admin pages from search engines
+Disallow: /admin.html
+Disallow: /admin-dashboard.html
+Disallow: /backend/
+
+# Sitemap (optional - add your sitemap URL)
+# Sitemap: https://your-domain.vercel.app/sitemap.xml
