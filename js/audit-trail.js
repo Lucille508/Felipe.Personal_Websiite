@@ -506,7 +506,7 @@ class AuditTrail {
     // Send event to backend
     sendToBackend(event, synchronous = false) {
         // Skip if no endpoint configured
-        if (!auditConfig.apiEndpoint || auditConfig.apiEndpoint === '/api/audit') {
+        if (!auditConfig.apiEndpoint) {
             return;
         }
 

@@ -1,16 +1,4 @@
 {
-  "functions": {
-    "backend/audit-api.js": {
-      "memory": 1024,
-      "maxDuration": 10
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/api/audit/:path*",
-      "destination": "/backend/audit-api.js"
-    }
-  ],
   "headers": [
     {
       "source": "/(.*)",

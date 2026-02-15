@@ -326,7 +326,7 @@
         // Auto-detect API URL based on environment
         const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:3000/api/audit'
-            : '/api/audit'; // Use relative URL for deployed version
+            : window.location.origin + '/api/audit'; // Use full origin for deployed version
         
         let allEvents = [];
         let allVisitors = [];
