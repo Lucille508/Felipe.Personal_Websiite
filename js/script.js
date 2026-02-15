@@ -416,77 +416,54 @@ contactForm.addEventListener('submit', async function(e) {
     if (isValid) {
         rateLimiter.recordAttempt();
         
-        // Get reCAPTCHA token (if implemented)
-        // Uncomment when you add your reCAPTCHA site key
-        /*
-        try {
-            const token = await grecaptcha.execute('YOUR_SITE_KEY', {action: 'submit'});
-            document.getElementById('recaptchaToken').value = token;
-        } catch (error) {
-            console.error('reCAPTCHA error:', error);
-            showFormMessage('Security verification failed. Please try again.', 'error');
-            return false;
-        }
-        */
-        
-        // Show success message
-        showFormMessage('✓ Message sent successfully! I will get back to you soon.', 'success');
-        
         // Animate submit button
         const submitBtn = document.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
         submitBtn.textContent = 'Sending...';
         submitBtn.disabled = true;
         
-        // Simulate sending (replace with actual AJAX call)
-        setTimeout(() => {
-            submitBtn.textContent = 'Message Sent! ✓';
-            submitBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
-            
-            // Here you would send data to your backend
-            // Example with Fetch API:
-            /*
-            fetch('/api/contact', {
+        try {
+            // Send form data to Formspree
+            const formData = new FormData(contactForm);
+            const response = await fetch(contactForm.action, {
                 method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
-                    name: escapeHTML(nameValue),
-                    email: escapeHTML(emailValue),
-                    message: escapeHTML(messageValue),
-                    recaptchaToken: document.getElementById('recaptchaToken').value
-                })
-            })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(data => {
-                showFormMessage('✓ Message sent successfully!', 'success');
-                contactForm.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showFormMessage('✗ Failed to send message. Please try again.', 'error');
-            })
-            .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.style.background = 'linear-gradient(135deg, #8b7355 0%, #6b5644 100%)';
-                submitBtn.disabled = false;
+                    'Accept': 'application/json'
+                }
             });
-            */
             
-            // Reset form after 3 seconds
-            setTimeout(() => {
-                contactForm.reset();
+            if (response.ok) {
+                // Success
+                showFormMessage('✓ Message sent successfully! I will get back to you soon.', 'success');
+                submitBtn.textContent = 'Message Sent! ✓';
+                submitBtn.style.background = 'linear-gradient(135deg, #4caf50 0%, #45a049 100%)';
+                
+                // Reset form after 3 seconds
+                setTimeout(() => {
+                    contactForm.reset();
+                    submitBtn.textContent = originalText;
+                    submitBtn.style.background = 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)';
+                    submitBtn.disabled = false;
+                    formMessage.style.display = 'none';
+                }, 3000);
+            } else {
+                // Error
+                const data = await response.json();
+                if (data.errors) {
+                    showFormMessage('✗ ' + data.errors.map(error => error.message).join(', '), 'error');
+                } else {
+                    showFormMessage('✗ Failed to send message. Please try again.', 'error');
+                }
                 submitBtn.textContent = originalText;
-                submitBtn.style.background = 'linear-gradient(135deg, #8b7355 0%, #6b5644 100%)';
                 submitBtn.disabled = false;
-                formMessage.style.display = 'none';
-            }, 3000);
-        }, 1000);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            showFormMessage('✗ Failed to send message. Please try again.', 'error');
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
     } else {
         // Show error message
         showFormMessage('✗ Please fill in all fields correctly.', 'error');
